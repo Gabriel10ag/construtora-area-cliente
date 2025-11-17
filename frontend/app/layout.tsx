@@ -1,11 +1,11 @@
 // app/layout.tsx
 import type { Metadata } from 'next';
-import React from 'react';
 import './globals.css';
+import React from 'react';
 
 export const metadata: Metadata = {
   title: 'Área do Cliente - Construtora',
-  description: 'Portal da área do cliente da construtora',
+  description: 'Portal completo para obras, financeiro e condomínio.',
 };
 
 export default function RootLayout({
@@ -15,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body className="min-h-screen bg-slate-950 text-slate-100">
+        {children}
+      </body>
     </html>
   );
 }

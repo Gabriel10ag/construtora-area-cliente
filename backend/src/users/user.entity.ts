@@ -14,34 +14,24 @@ export class User {
   @Column({ length: 255 })
   name: string;
 
-  @Column({ length: 255, unique: true })
+  @Column({ length: 255, nullable: true })
   email: string;
 
-  @Column({ name: 'password_hash', length: 255 })
+  @Column({ name: 'password_hash', type: 'varchar', length: 255 })
   passwordHash: string;
 
-  @Column({
-    name: 'phone',
-    type: 'varchar',
-    length: 50,
-    nullable: true,
-  })
-  phone: string | null;
+  @Column({ length: 20, nullable: true })
+  phone: string;
 
-  @Column({
-    name: 'document',
-    type: 'varchar',
-    length: 30,
-    nullable: true,
-  })
-  document: string | null;
+  @Column({ name: 'document', length: 30, nullable: true })
+  document: string;
 
   @Column({ name: 'is_active', type: 'tinyint', default: 1 })
-  isActive: number;
+  isActive: boolean;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', type: 'datetime', precision: 6 })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'datetime', precision: 6 })
   updatedAt: Date;
 }

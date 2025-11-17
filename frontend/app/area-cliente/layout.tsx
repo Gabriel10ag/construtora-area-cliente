@@ -60,6 +60,12 @@ export default function AreaClienteLayout({
             Atendimentos
           </a>
           <a
+            href="/area-cliente/votacoes"
+            className="block px-3 py-2 rounded hover:bg-gray-100"
+          >
+            Votações
+          </a>
+          <a
             href="/area-cliente/perfil"
             className="block px-3 py-2 rounded hover:bg-gray-100"
           >

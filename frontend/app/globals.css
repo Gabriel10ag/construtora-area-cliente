@@ -1,26 +1,57 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===== RESET E BASE ===== */
+html, body {
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #0f172a; /* slate-900 */
+  color: #e2e8f0; /* slate-300 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::selection {
+  background: rgba(37, 99, 235, 0.5);
+  color: white;
+}
+
+/* Container principal do site */
+.app-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Cards com borda e iluminação */
+.card-elevated {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: #0f172a;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(148, 163, 184, 0.2);
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #f9fafb;
+    color: #0f172a;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .card-elevated {
+    background: white;
+    border-color: rgba(0,0,0,0.08);
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.08),
+      0 0 0 1px rgba(0,0,0,0.05);
+  }
 }

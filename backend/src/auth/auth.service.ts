@@ -11,15 +11,30 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.usersService.findByEmail(email);
+  /**
+   * Login usando DOCUMENTO ao invés de e-mail
+   */
+  async validateUser(document: string, password: string): Promise<User> {
+    const user = await this.usersService.findByDocument(document);
+
     if (!user) {
-      throw new UnauthorizedException('Credenciais inválidas');
+      throw new UnauthorizedException('Documento ou senha incorretos.');
     }
 
-    const valid = await bcrypt.compare(password, user.passwordHash);
-    if (!valid) {
-      throw new UnauthorizedException('Credenciais inválidas');
+    if (!user.isActive) {
+      throw new UnauthorizedException('Usuário inativo.');
+    }
+
+    const passwordHash =
+      (user as any).passwordHash || (user as any).password_hash;
+
+    if (!passwordHash) {
+      throw new UnauthorizedException('Usuário sem senha cadastrada.');
+    }
+
+    const passwordOk = await bcrypt.compare(password, passwordHash);
+    if (!passwordOk) {
+      throw new UnauthorizedException('Documento ou senha incorretos.');
     }
 
     return user;
@@ -28,7 +43,7 @@ export class AuthService {
   async login(user: User) {
     const payload = {
       sub: user.id,
-      email: user.email,
+      document: user.document,
       name: user.name,
     };
 
@@ -37,7 +52,7 @@ export class AuthService {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
+        document: user.document,
       },
     };
   }
